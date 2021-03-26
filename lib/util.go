@@ -131,11 +131,8 @@ func replaceTextInFile(originalFile string, search string, replace string, desti
 		log.WithField("error", err).Errorf("Could not open original File %s", originalFile)
 		return
 	}
-	fmt.Println("Source data : ")
-	fmt.Println(string(read))
+	fmt.Println("IP address used : ", replace)
 	newContents := strings.Replace(string(read), search, replace, -1)
-	fmt.Println("Destination data : ")
-	fmt.Println(newContents)
 	err = ioutil.WriteFile(destinationFile, []byte(newContents), 0777)
 	if err != nil {
 		log.WithField("error", err).Errorf("Could not write to destination File %s", destinationFile)

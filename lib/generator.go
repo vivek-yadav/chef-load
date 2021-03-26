@@ -25,6 +25,7 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
+	"os"
 	"strconv"
 	"sync"
 	"time"
@@ -377,10 +378,10 @@ func randomChefClientRun(config *Config, chefClient chef.Client, nodeName string
 		}
 		node.AutomaticAttributes = parseJSONFile(jsonFile)
 		if config.ReplaceIPAddress != "" {
-			// e := os.Remove(jsonFile)
-			// if e != nil {
-			// 	log.WithField("error", e).Errorf("Could not Remove to destination File %s", jsonFile)
-			// }
+			e := os.Remove(jsonFile)
+			if e != nil {
+				log.WithField("error", e).Errorf("Could not Remove to destination File %s", jsonFile)
+			}
 		}
 	} else {
 		node.AutomaticAttributes = map[string]interface{}{}
