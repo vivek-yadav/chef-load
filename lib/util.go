@@ -27,6 +27,7 @@ import (
 	"regexp"
 	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/go-chef/chef"
@@ -122,6 +123,25 @@ func parseJSONFile(jsonFile string) map[string]interface{} {
 		return jsonContent
 	}
 	return jsonContent
+}
+
+func replaceTextInFile(originalFile string, search string, replace string, destinationFile string) {
+	read, err := ioutil.ReadFile(originalFile)
+	if err != nil {
+		log.WithField("error", err).Errorf("Could not open original File %s", originalFile)
+		return
+	}
+	fmt.Println("Source data : ")
+	fmt.Println(string(read))
+	newContents := strings.Replace(string(read), search, replace, -1)
+	fmt.Println("Destination data : ")
+	fmt.Println(newContents)
+	err = ioutil.WriteFile(destinationFile, []byte(newContents), 0777)
+	if err != nil {
+		log.WithField("error", err).Errorf("Could not write to destination File %s", destinationFile)
+		return
+	}
+	fmt.Println("Destination File added")
 }
 
 type amountOfRequests map[request]uint64

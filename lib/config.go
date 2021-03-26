@@ -63,6 +63,7 @@ type Config struct {
 	DataCollectorURL           string   `mapstructure:"data_collector_url"`
 	DataCollectorToken         string   `mapstructure:"data_collector_token"`
 	OhaiJSONFile               string   `mapstructure:"ohai_json_file"`
+	ReplaceIPAddress           string   `mapstructure:"replace_ip_address"`
 	ConvergeStatusJSONFile     string   `mapstructure:"converge_status_json_file"`
 	ComplianceStatusJSONFile   string   `mapstructure:"compliance_status_json_file"`
 	ComplianceSampleReportsDir string   `mapstructure:"compliance_sample_reports_dir"`

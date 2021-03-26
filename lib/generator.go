@@ -369,7 +369,19 @@ func randomChefClientRun(config *Config, chefClient chef.Client, nodeName string
 	node.Environment = getRandom("environment")
 	node.RunList = randRunList
 	if config.OhaiJSONFile != "" {
-		node.AutomaticAttributes = parseJSONFile(config.OhaiJSONFile)
+		jsonFile := config.OhaiJSONFile
+		if config.ReplaceIPAddress != "" {
+			nodeIp := generateIpAddress()
+			jsonFile = config.OhaiJSONFile + "-" + nodeIp
+			replaceTextInFile(config.OhaiJSONFile, config.ReplaceIPAddress, nodeIp, jsonFile)
+		}
+		node.AutomaticAttributes = parseJSONFile(jsonFile)
+		if config.ReplaceIPAddress != "" {
+			// e := os.Remove(jsonFile)
+			// if e != nil {
+			// 	log.WithField("error", e).Errorf("Could not Remove to destination File %s", jsonFile)
+			// }
+		}
 	} else {
 		node.AutomaticAttributes = map[string]interface{}{}
 	}
