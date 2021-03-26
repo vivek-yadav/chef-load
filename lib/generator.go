@@ -373,7 +373,7 @@ func randomChefClientRun(config *Config, chefClient chef.Client, nodeName string
 		jsonFile := config.OhaiJSONFile
 		if config.ReplaceIPAddress != "" {
 			nodeIp := generateIpAddress()
-			jsonFile = config.OhaiJSONFile + "-" + nodeIp
+			jsonFile = "/tmp/chef-load-random-ip-" + nodeIp + ".json"
 			replaceTextInFile(config.OhaiJSONFile, config.ReplaceIPAddress, nodeIp, jsonFile)
 		}
 		node.AutomaticAttributes = parseJSONFile(jsonFile)
